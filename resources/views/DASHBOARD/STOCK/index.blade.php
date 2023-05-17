@@ -33,7 +33,7 @@
                         <td>@currency($product->harga)</td>
                         <td>{{ $product->link }}</td>
                         <td>
-                            <a href="" class="badge bg-primary">
+                            <a href="/shop-single" class="badge bg-primary">
                                 <box-icon type='solid' name='bullseye'></box-icon>
                             </a>
                             <a href="/dashboard-stock/{{ $product->id }}/edit" class="badge bg-warning">

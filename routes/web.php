@@ -32,10 +32,6 @@ Route::get('/shop', function () {
     return view('frontpage.shop');
 });
 
-Route::get('/shop-single', function () {
-    return view('frontpage.shop-single');
-});
-
 Route::get('/home', function () {
     return view('frontpage.index');
 });
@@ -52,8 +48,7 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
-})->middleware('auth');
+})->middleware('penjual');
 
-Route::resource('/dashboard-stock', ProductController::class)->middleware('auth');
-
-Route::resource('/dashboard-stock', ProductController::class)->middleware('auth');
+Route::resource('/dashboard-stock', ProductController::class)->middleware('penjual');
+Route::get('/shop-single', [ProductController::class, 'shop'])->middleware('auth');

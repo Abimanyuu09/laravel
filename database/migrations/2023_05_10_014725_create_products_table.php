@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('namabarang');
             $table->string('deskripsi');
             $table->string('link');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('stock');
             $table->integer('harga');
             $table->timestamps();

@@ -13,7 +13,15 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize('penjual');
         return view('dashboard.stock.index', [
+            'products' => Product::all()
+        ]);
+    }
+
+    public function shop()
+    {
+        return view('frontpage.shop-single', [
             'products' => Product::all()
         ]);
     }
@@ -44,7 +52,6 @@ class ProductController extends Controller
         ]);
 
         if ($request->file('image')) {
-
             $validatedData['image'] = $request->file('image')->store('product-images');
         }
 

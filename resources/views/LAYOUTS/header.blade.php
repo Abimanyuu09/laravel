@@ -54,12 +54,12 @@
                      <li class="nav-item">
                          <a class="nav-link {{ Request::is('contact') ? 'fw-bold' : '' }}" href="/contact">Contact</a>
                      </li>
-                     {{-- @can('penjual') --}}
-                     <li class="nav-item ">
-                         <a
-                             class="nav-link {{ Request::is('dashboard') ? 'fw-bold' : '' }}"href="/dashboard">Dashboard</a>
-                     </li>
-                     {{-- @endcan --}}
+                     @can('penjual')
+                         <li class="nav-item ">
+                             <a
+                                 class="nav-link {{ Request::is('dashboard') ? 'fw-bold' : '' }}"href="/dashboard">Dashboard</a>
+                         </li>
+                     @endcan
                  </ul>
              </div>
              <div class="navbar align-self-center d-flex">
