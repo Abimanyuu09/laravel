@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_penjual')->deafult(false)->nullable();
+            $table->boolean('is_pembeli')->deafult(false)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
