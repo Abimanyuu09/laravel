@@ -29,9 +29,9 @@
  <nav class="navbar navbar-expand-lg navbar-light shadow">
      <div class="container d-flex justify-content-between align-items-center">
 
-         <a class="navbar-brand text-success logo h1 align-self-center">
+         <p class="navbar-brand text-success logo h1 align-self-center">
              Popo Store
-         </a>
+         </p>
          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
              data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
              aria-label="Toggle navigation">
@@ -42,62 +42,68 @@
              id="templatemo_main_nav">
              <div class="flex-fill">
                  <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                     <li class="nav-item">
-                         <a class="nav-link" href="/home">Home</a>
+                     <li class="nav-item ">
+                         <a class="nav-link {{ Request::is('home') ? 'fw-bold' : '' }}" href="/home">Home</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="/about">About</a>
+                         <a class="nav-link {{ Request::is('about') ? 'fw-bold' : '' }}" href="/about">About</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="/shop">Shop</a>
+                         <a class="nav-link {{ Request::is('shop') ? 'fw-bold' : '' }}" href="/shop">Shop</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="/contact">Contact</a>
+                         <a class="nav-link {{ Request::is('contact') ? 'fw-bold' : '' }}" href="/contact">Contact</a>
                      </li>
+                     {{-- @can('penjual') --}}
+                     <li class="nav-item ">
+                         <a
+                             class="nav-link {{ Request::is('dashboard') ? 'fw-bold' : '' }}"href="/dashboard">Dashboard</a>
+                     </li>
+                     {{-- @endcan --}}
                  </ul>
              </div>
-             @auth
-                 <div class="navbar align-self-center d-flex">
-                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                         <div class="input-group">
-                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                             <div class="input-group-text">
-                                 <i class="fa fa-fw fa-search"></i>
-                             </div>
+             <div class="navbar align-self-center d-flex">
+                 <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                     <div class="input-group">
+                         <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                         <div class="input-group-text">
+                             <i class="fa fa-fw fa-search"></i>
                          </div>
                      </div>
-                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
-                         data-bs-target="#templatemo_search">
-                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                     </a>
-                     <a class="nav-icon position-relative text-decoration-none" href="#">
-                         <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                         <span
-                             class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                     </a>
+                 </div>
+                 <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                     data-bs-target="#templatemo_search">
+                     <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                 </a>
+                 @auth
+                     <button class="btn nav-icon position-relative text-decoration-none dropdown-toggle"
+                         id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                         <i class="fa fa-fw fa-user text-dark"></i>
+                         <i class="fw-bold ms-2">{{ auth()->user()->name }}</i>
+                     </button>
+                     <ul class="dropdown-menu ms-4" aria-labelledby="dropdownMenuButton1">
+                         <li class="nav-item">
+                             <form action="/logout" method="post">
+                                 @csrf
+                                 <button type="submit" class="dropdown-item">Logout <i
+                                         class="bi bi-box-arrow-right"></i></button>
+                             </form>
+                         </li>
+                         <li>
+                             <i></i>
+                         </li>
+                     </ul>
+                 @else
                      <button class="btn nav-icon position-relative text-decoration-none dropdown-toggle"
                          id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                          <i class="fa fa-fw fa-user text-dark mr-3"></i>
                      </button>
-                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                         <li>
-                             <form action="/logout" method="post">
-                                 @csrf
-                                 <button type="submit" class="dropdown-item"><i
-                                         class="bibi-box-arrow-right"></i>Logout</button>
-                             </form>
+                     <ul class="dropdown-menu ms-4" aria-labelledby="dropdownMenuButton1">
+                         <li class="nav-item">
+                             <a class="dropdown-item nav-link" href="/login"><i class="bi bi-box-arrow-right"></i>
+                                 Login</a>
+                         </li>
                      </ul>
-                 @else
-                     <div class="dropdown">
-
-                         <button class="btn nav-icon position-relative text-decoration-none dropdown-toggle"
-                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                         </button>
-                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                             <li><a class="dropdown-item" href="/login">Login</a></li>
-                         </ul>
-                     </div>
                  @endauth
 
              </div>
