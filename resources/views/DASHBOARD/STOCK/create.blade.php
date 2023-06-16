@@ -58,16 +58,29 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Product Image</label>
-                <input class="form-control" type="file" id="image" name="image"
-                    @error('image') is-invalid @enderror>
+                <label for="image" class="form-label @error('image') is-invalid @enderror">Post Image</label>
+                <img class="img-preview img-fluid mb-3 col-sm-5">
+                <input class="form-control" type="file" name="image" id="image" onchange="previewImage()">
                 @error('image')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary">Create Product</button>
         </form>
     </div>
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

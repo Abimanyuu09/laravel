@@ -28,10 +28,6 @@ Route::get('/contact', function () {
     return view('frontpage.contact');
 });
 
-Route::get('/shop', function () {
-    return view('frontpage.shop');
-});
-
 Route::get('/home', function () {
     return view('frontpage.index');
 });
@@ -51,4 +47,5 @@ Route::get('/dashboard', function () {
 })->middleware('penjual');
 
 Route::resource('/dashboard-stock', ProductController::class)->middleware('penjual');
-Route::get('/shop-single', [ProductController::class, 'shop'])->middleware('auth');
+Route::get('/shop/{product:id}', [ProductController::class, 'show'])->middleware('auth');
+Route::get('/shop', [ProductController::class, 'shop'])->middleware('auth');

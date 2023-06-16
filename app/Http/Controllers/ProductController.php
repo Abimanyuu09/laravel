@@ -19,14 +19,13 @@ class ProductController extends Controller
         ]);
     }
 
-    public function shop()
+    public function show(Product $product)
     {
         return view('frontpage.shop-single', [
-            'products' => Product::all()
+            'products' => Product::all(),
+            'product' => $product
         ]);
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +45,7 @@ class ProductController extends Controller
             'namabarang' => 'required|max:255|unique:products',
             'deskripsi' => 'required|max:255',
             'link' => 'required|max:255',
-            'image' => 'required|file|max:1024',
+            'image' => 'required|file|max:3072',
             'stock' => 'required',
             'harga' => 'required'
         ]);
@@ -65,26 +64,29 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $dashboard_stock)
+    public function shop(Product $product)
     {
-        //
+        return view('frontpage.shop', [
+            'products' => Product::all(),
+            'product' => $product
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $dashboard_stock)
+    public function edit(Product $product)
     {
         return view('dashboard.stock.edit', [
 
-            'product' => $dashboard_stock
+            'product' => $product
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $dashboard_stock)
+    public function update(Request $request, Product $product)
     {
         $rules = [
             'deskripsi' => 'required|max:255',
@@ -93,7 +95,7 @@ class ProductController extends Controller
             'link' => 'required|max:255'
         ];
 
-        if ($request->namabarang != $dashboard_stock->namabarang) {
+        if ($request->namabarang != $product->namabarang) {
 
             $rules['namabarang'] = 'required|max:255|unique:products';
 
@@ -101,7 +103,7 @@ class ProductController extends Controller
 
             // $validatedData['user_id'] = auth()->user()->id;
 
-            product::where('id', $dashboard_stock->id)
+            product::where('id', $product->id)
                 ->update($validatedData);
 
             return redirect('/dashboard-stock')->with('success', 'product has been updated ');
@@ -111,9 +113,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $dashboard_stock)
+    public function destroy(Product $product)
     {
-        $dashboard_stock->delete();
+        $product->delete();
         return redirect('/dashboard-stock')->with('success', 'Product has been deleted ');
     }
 }
